@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import RootContainer from './RootContainer'
 import createStore from '../Redux'
 import { persistStore } from 'redux-persist'
+import { Root } from 'native-base'
 
 // create our store
 const store = createStore()
@@ -26,13 +27,14 @@ class App extends Component {
       this.setState({ rehydrated: true })
     })
   }
-
   render () {
     if (!this.state.rehydrated) {
       return null
     }
     return <Provider store={store}>
-      <RootContainer />
+      <Root>
+        <RootContainer />
+      </Root>
     </Provider>
   }
 }

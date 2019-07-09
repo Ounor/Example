@@ -1,38 +1,58 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, Image, View } from 'react-native'
-import { Images } from '../Themes'
+import { Text, View } from 'react-native'
+import { Container, Input, Content, Item, Label, Form, Toast , Button} from 'native-base'
 
 // Styles
-import styles from './Styles/LaunchScreenStyles'
+import Styles from './Styles/LaunchScreenStyles'
+
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import UserActions from '../Redux/UserRedux'
 
 class LaunchScreen extends Component {
+  state = {
+    showToast: false
+  };
   componentDidMount () {
-    const {user} = this.props
+    const {user, errors} = this.props
+    console.tron.log(this.props)
     if (!user.authToken) {
       this.props.navigation.navigate('SignUpScreen')
+    } else if (user.authToken && !errors) {
+      this.props.navigation.navigate('MainScreen')
     }
-    this.props.getUserRequest(user.authToken)
+    // this.props.getUserRequest(user.authToken)
   }
-
+  showToast = () => {
+    Toast.show({
+      text: 'Wrong password!',
+      duration: 3000,
+      type: 'danger'
+    })
+  }
   render () {
-    console.tron.log(this.props.errors)
-
     return (
-      <View style={styles.mainContainer}>
-        <Image source={Images.background} style={styles.backgroundImage} resizeMode='stretch' />
-        <ScrollView style={styles.container}>
-          <View style={styles.centered}>
-
-          </View>
-
-          <View style={styles.section} >
-
-          </View>
-
-        </ScrollView>
+      <View style={Styles.mainContainer}>
+        <Container>
+          <Content>
+            <Form>
+              <Item floatingLabel>
+                <Label>Username</Label>
+                <Input />
+              </Item>
+              <Item floatingLabel last>
+                <Label>Password</Label>
+                <Input />
+              </Item>
+              <Button onPress={this.showToast}>
+                <Text>Login</Text>
+              </Button>
+              <Button onPress={() => this.props.navigation.navigate('SignUpScreen')}>
+                <Text>Sign Up</Text>
+              </Button>
+            </Form>
+          </Content>
+        </Container>
       </View>
     )
   }

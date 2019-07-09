@@ -1,5 +1,6 @@
 import { select } from 'redux-saga/effects'
 import {userSelector} from '../Redux/UserRedux'
+import { persistStore } from 'redux-persist'
 
 // exported to make available for tests
 // export const selectAvatar = PWSelectors.selectAvatar
@@ -10,7 +11,5 @@ export function * startup (action) {
 
   if (__DEV__ && console.tron) {
     // straight-up string logging
-    console.tron.log(action)
-
   }
 }
