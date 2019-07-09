@@ -1,5 +1,3 @@
-import Actions, { reducer, INITIAL_STATE } from '../../App/Redux/GithubRedux'
-
 test('request', () => {
   const username = 'taco'
   const state = reducer(INITIAL_STATE, Actions.userRequest(username))

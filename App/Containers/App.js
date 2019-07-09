@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import { Provider } from 'react-redux'
 import RootContainer from './RootContainer'
 import createStore from '../Redux'
+import { persistStore } from 'redux-persist'
 
 // create our store
 const store = createStore()
@@ -18,12 +19,21 @@ const store = createStore()
  * We separate like this to play nice with React Native's hot reloading.
  */
 class App extends Component {
+  state = { rehydrated: false }
+
+  componentWillMount () {
+    persistStore(store, {}, () => {
+      this.setState({ rehydrated: true })
+    })
+  }
+
   render () {
-    return (
-      <Provider store={store}>
-        <RootContainer />
-      </Provider>
-    )
+    if (!this.state.rehydrated) {
+      return null
+    }
+    return <Provider store={store}>
+      <RootContainer />
+    </Provider>
   }
 }
 

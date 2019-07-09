@@ -1,13 +1,19 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation'
+import HistoryScreen from '../Containers/HistoryScreen'
+import SignUpScreen from '../Containers/SignUpScreen'
+import TransactionsScreen from '../Containers/TransactionsScreen'
+import AuthScreen from '../Containers/AuthScreen'
 import LaunchScreen from '../Containers/LaunchScreen'
 
 import styles from './Styles/NavigationStyles'
 
-// Manifest of possible screens
 const PrimaryNav = createStackNavigator({
+  HistoryScreen: { screen: HistoryScreen },
+  SignUpScreen: { screen: SignUpScreen },
+  TransactionsScreen: { screen: TransactionsScreen },
+  AuthScreen: { screen: AuthScreen },
   LaunchScreen: { screen: LaunchScreen }
 }, {
-  // Default config for all screens
   headerMode: 'none',
   initialRouteName: 'LaunchScreen',
   navigationOptions: {
