@@ -1,60 +1,23 @@
 import React, { Component } from 'react'
-import { Text, View } from 'react-native'
-import { Container, Input, Content, Item, Label, Form, Toast , Button} from 'native-base'
+import { Spinner } from 'native-base'
 
 // Styles
-import Styles from './Styles/LaunchScreenStyles'
-
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import UserActions from '../Redux/UserRedux'
 
 class LaunchScreen extends Component {
-  state = {
-    showToast: false
-  };
   componentDidMount () {
-    const {user, errors} = this.props
-    console.tron.log(this.props)
+    const {user, getUserRequest} = this.props
     if (!user.authToken) {
-      this.props.navigation.navigate('SignUpScreen')
-    } else if (user.authToken && !errors) {
-      this.props.navigation.navigate('MainScreen')
+      this.props.navigation.navigate('AuthScreen')
+    } else {
+      getUserRequest(user.authToken)
     }
-    // this.props.getUserRequest(user.authToken)
   }
-  showToast = () => {
-    Toast.show({
-      text: 'Wrong password!',
-      duration: 3000,
-      type: 'danger'
-    })
-  }
+
   render () {
-    return (
-      <View style={Styles.mainContainer}>
-        <Container>
-          <Content>
-            <Form>
-              <Item floatingLabel>
-                <Label>Username</Label>
-                <Input />
-              </Item>
-              <Item floatingLabel last>
-                <Label>Password</Label>
-                <Input />
-              </Item>
-              <Button onPress={this.showToast}>
-                <Text>Login</Text>
-              </Button>
-              <Button onPress={() => this.props.navigation.navigate('SignUpScreen')}>
-                <Text>Sign Up</Text>
-              </Button>
-            </Form>
-          </Content>
-        </Container>
-      </View>
-    )
+    return <Spinner color='#3b5998' style={{ marginTop: '100%' }} />
   }
 }
 
@@ -66,7 +29,9 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  getUserRequest: bindActionCreators(UserActions.getUserRequest, dispatch)
+  getUserRequest: bindActionCreators(UserActions.getUserRequest, dispatch),
+  signInRequest: bindActionCreators(UserActions.signInRequest, dispatch),
+  clearErrors: bindActionCreators(UserActions.clearErrors, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(LaunchScreen)

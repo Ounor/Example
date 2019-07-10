@@ -7,12 +7,11 @@ import DebugConfig from '../Config/DebugConfig'
 
 import { StartupTypes } from '../Redux/StartupRedux'
 import { UserTypes } from '../Redux/UserRedux'
-// import { PWTypes } from '../Redux/PWRedux'
 
 /* ------------- Sagas ------------- */
 
-import { startup } from './StartupSagas'
-import { signUpRequest, getUser } from './UserSagas'
+import {startup} from './StartupSagas'
+import {signUpRequest, signInRequest, getUser, getUsers, createTransaction} from './UserSagas'
 // import { signUpRequest } from './UserSagas'
 
 /* ------------- API ------------- */
@@ -25,9 +24,11 @@ const api = DebugConfig.useFixtures ? FixtureAPI : API.create()
 
 export default function * root () {
   yield all([
-    // some sagas only receive an action
     takeLatest(StartupTypes.STARTUP, startup),
     takeLatest(UserTypes.SIGN_UP_REQUEST, signUpRequest, api),
-    takeLatest(UserTypes.GET_USER_REQUEST, getUser, api)
+    takeLatest(UserTypes.SIGN_IN_REQUEST, signInRequest, api),
+    takeLatest(UserTypes.GET_USER_REQUEST, getUser, api),
+    takeLatest(UserTypes.GET_USERS_REQUEST, getUsers, api),
+    takeLatest(UserTypes.MAKE_TRANSACTION_REQUEST, createTransaction, api)
   ])
 }

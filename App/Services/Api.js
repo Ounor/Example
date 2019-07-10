@@ -11,18 +11,20 @@ const create = (baseURL = 'http://193.124.114.46:3001/') => {
     timeout: 1000
   })
 
-  const getRoot = () => api.get('')
   const getUser = (token) => api.get('/api/protected/user-info', {}, {headers: {'Authorization': 'bearer ' + token}})
-  const getTransactions = (username) => api.get('/api/protected/transactions', {q: username})
+  const getTransactions = (token) => api.get('/api/protected/transactions', {}, {headers: {'Authorization': 'bearer ' + token}})
   const signUp = (username, password, email) => api.post('/users', {username: username, password: password, email: email})
   const signIn = (email, password) => api.post('/sessions/create', {email: email, password: password})
+  const createTransaction = (name, amount, token) => api.post('/api/protected/transactions', {name: name, amount: amount}, {headers: {'Authorization': 'bearer ' + token}})
+  const getUsers = (filter, token) => api.post('/api/protected/users/list', {filter}, {headers: {'Authorization': 'bearer ' + token}})
 
   return {
     getTransactions,
-    getRoot,
     getUser,
     signUp,
-    signIn
+    signIn,
+    createTransaction,
+    getUsers
   }
 }
 

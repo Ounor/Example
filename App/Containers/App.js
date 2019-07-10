@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import RootContainer from './RootContainer'
 import createStore from '../Redux'
 import { persistStore } from 'redux-persist'
-import { Root } from 'native-base'
+import { Root, Spinner } from 'native-base'
 
 // create our store
 const store = createStore()
@@ -29,7 +29,7 @@ class App extends Component {
   }
   render () {
     if (!this.state.rehydrated) {
-      return null
+      return <Spinner color='#3b5998' style={{ marginTop: '100%' }} />
     }
     return <Provider store={store}>
       <Root>
