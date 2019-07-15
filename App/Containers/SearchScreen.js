@@ -69,7 +69,7 @@ class SearchScreen extends Component {
           <Item style={{flex: 1, width: 200}}>
             <Icon name='ios-search' />
             <Input autoFocus value={this.state.filter} onChangeText={(text) => this.handleSearchInput(text)} placeholder='Search' />
-              <Icon onPress={this.handleClearUsers} name='close' />
+            <Icon onPress={this.handleClearUsers} name='close' />
           </Item>
         </Header>
         { userList && userList.data.length === 0 && <Text style={{width: '100%', fontSize: 18, textAlign: 'center', marginTop: 20}}> Not found </Text>}

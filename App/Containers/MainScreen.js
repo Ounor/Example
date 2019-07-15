@@ -60,15 +60,15 @@ class MainScreen extends Component {
     const { user, transactionsList } = this.props
     return (
       <Container>
-        <Header/>
+        <Header />
         <View style={Styles.mainScreenHeader}>
           <View style={[Styles.mainColon, Styles.userContainer]}>
-            <View style={Styles.emptyCol}/>
+            <View style={Styles.emptyCol} />
             <View style={Styles.profileImgContainer}>
-              <Image style={Styles.profileImg} source={{ uri: 'https://www.gstatic.com/webp/gallery/2.jpg' }}/>
+              <Image style={Styles.profileImg} source={{ uri: 'https://www.gstatic.com/webp/gallery/2.jpg' }} />
             </View>
             <View style={[Styles.emptyCol, Styles.center]}>
-              <Icon onPress={() => this.props.loginOut()} style={Styles.logOut} name='log-out'/>
+              <Icon onPress={() => this.props.loginOut()} style={Styles.logOut} name='log-out' />
             </View>
           </View>
           <View style={[Styles.colon, Styles.userBlockText]}>
